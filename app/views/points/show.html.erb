@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Qualification:</strong>
+  <%= @point.qualification %>
+</p>
+
+<p>
+  <strong>Learning:</strong>
+  <%= @point.learning %>
+</p>
+
+<p>
+  <strong>Science:</strong>
+  <%= @point.science %>
+</p>
+
+<p>
+  <strong>Clinic:</strong>
+  <%= @point.clinic %>
+</p>
+
+<p>
+  <strong>Social:</strong>
+  <%= @point.social %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @point.year %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @point.employee %>
+</p>
+
+<%= link_to 'Edit', edit_point_path(@point) %> |
+<%= link_to 'Back', points_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  qualification: 1.5
+  learning: 1.5
+  science: 1.5
+  clinic: 1.5
+  social: 1.5
+  year: 1
+  employee_id: 
+
+two:
+  qualification: 1.5
+  learning: 1.5
+  science: 1.5
+  clinic: 1.5
+  social: 1.5
+  year: 1
+  employee_id: 

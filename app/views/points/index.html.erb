@@ -1,0 +1,39 @@
+<h1>Listing points</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Qualification</th>
+      <th>Learning</th>
+      <th>Science</th>
+      <th>Clinic</th>
+      <th>Social</th>
+      <th>Year</th>
+      <th>Employee</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @points.each do |point| %>
+      <tr>
+        <td><%= point.qualification %></td>
+        <td><%= point.learning %></td>
+        <td><%= point.science %></td>
+        <td><%= point.clinic %></td>
+        <td><%= point.social %></td>
+        <td><%= point.year %></td>
+        <td><%= point.employee %></td>
+        <td><%= link_to 'Show', point %></td>
+        <td><%= link_to 'Edit', edit_point_path(point) %></td>
+        <td><%= link_to 'Destroy', point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Point', new_point_path %>
