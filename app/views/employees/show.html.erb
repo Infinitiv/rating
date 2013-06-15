@@ -4,22 +4,20 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
-  <dd><%= @employee.first_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:middle_name) %>:</strong></dt>
-  <dd><%= @employee.middle_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
-  <dd><%= @employee.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fio) %>:</strong></dt>
+  <dd><%= @employee.fio %></dd>
+  <dt><strong><%= Point.human_attribute_name(:sum) %>:</strong></dt>
+  <dd><%= @employee.rating(@last_year) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:chair_id) %>:</strong></dt>
-  <dd><%= @employee.chair_id %></dd>
+  <dd><%= link_to @employee.chair.name, @employee.chair if @employee.chair %></dd>
   <dt><strong><%= model_class.human_attribute_name(:post_id) %>:</strong></dt>
-  <dd><%= @employee.post_id %></dd>
+  <dd><%= @employee.post.name if @employee.post %></dd>
   <dt><strong><%= model_class.human_attribute_name(:degree_id) %>:</strong></dt>
-  <dd><%= @employee.degree_id %></dd>
+  <dd><%= @employee.degree ? @employee.degree.name : '-'  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:academic_title_id) %>:</strong></dt>
-  <dd><%= @employee.academic_title_id %></dd>
+  <dd><%= @employee.academic_title ? @employee.academic_title.name : '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:head) %>:</strong></dt>
-  <dd><%= @employee.head %></dd>
+  <dd><%= @employee.head? ? 'да, рейтинг ' + '%.2f' % @employee.head_rating(@last_year) : 'нет' %></dd>
 </dl>
 
 <div class="form-actions">

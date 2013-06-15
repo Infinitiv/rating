@@ -1,45 +1,50 @@
-<%= form_for(@point) do |f| %>
-  <% if @point.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@point.errors.count, "error") %> prohibited this point from being saved:</h2>
-
-      <ul>
-      <% @point.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @point, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :qualification, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :qualification, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :learning, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :learning, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :science, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :science, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :clinic, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :clinic, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :social, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :social, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :year, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :employee_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :employee_id, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :qualification %><br>
-    <%= f.text_field :qualification %>
-  </div>
-  <div class="field">
-    <%= f.label :learning %><br>
-    <%= f.text_field :learning %>
-  </div>
-  <div class="field">
-    <%= f.label :science %><br>
-    <%= f.text_field :science %>
-  </div>
-  <div class="field">
-    <%= f.label :clinic %><br>
-    <%= f.text_field :clinic %>
-  </div>
-  <div class="field">
-    <%= f.label :social %><br>
-    <%= f.text_field :social %>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.number_field :year %>
-  </div>
-  <div class="field">
-    <%= f.label :employee %><br>
-    <%= f.text_field :employee %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                points_path, :class => 'btn' %>
   </div>
 <% end %>

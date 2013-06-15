@@ -1,14 +1,48 @@
 <%- model_class = Chair -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', :default => @chair.name.titleize %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @chair.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
+  <dd><%= '%.2f' % @chair.rating(@last_year) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:faculty_id) %>:</strong></dt>
   <dd><%= @chair.faculty.name if @chair.faculty %></dd>
 </dl>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:fio) %></th>
+      <th><%= Employee.human_attribute_name(:rating) %></th>
+      <th><%= model_class.human_attribute_name(:post_id) %></th>
+      <th><%= model_class.human_attribute_name(:degree_id) %></th>
+      <th><%= model_class.human_attribute_name(:academic_title_id) %></th>
+      <th><%= model_class.human_attribute_name(:head) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chair.employees.sort_by{|e| e.rating(@last_year)}.reverse.each do |employee| %>
+      <tr>
+        <td><%= link_to employee.fio, employee_path(employee), :title => employee.rating(@last_year)  %></td>
+        <td><%= employee.rating(@last_year) %></td>
+        <td><%= employee.post.name if employee.post %></td>
+        <td><%= employee.degree.name if employee.degree%></td>
+        <td><%= employee.academic_title.name if employee.academic_title %></td>
+        <td><%= 'да, рейтинг ' + '%.2f' % employee.head_rating(@last_year) if employee.head? %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_employee_path(employee), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      employee_path(employee),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

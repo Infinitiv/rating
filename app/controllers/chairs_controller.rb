@@ -4,12 +4,14 @@ class ChairsController < ApplicationController
   # GET /chairs
   # GET /chairs.json
   def index
-    @chairs = Chair.all
+    @last_year = Point.maximum(:year)
+    @chairs = Chair.all.sort_by{|c| c.rating(@last_year)}.reverse
   end
 
   # GET /chairs/1
   # GET /chairs/1.json
   def show
+    @last_year = Point.maximum(:year)
   end
 
   # GET /chairs/new

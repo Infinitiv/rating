@@ -48,3 +48,5 @@ gem 'capistrano', group: :development
 gem 'twitter-bootstrap-rails'
 
 gem 'will_paginate'
+
+gem 'ruby-standard-deviation'

@@ -6,31 +6,23 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:first_name) %></th>
-      <th><%= model_class.human_attribute_name(:middle_name) %></th>
-      <th><%= model_class.human_attribute_name(:last_name) %></th>
+      <th><%= model_class.human_attribute_name(:fio) %></th>
       <th><%= model_class.human_attribute_name(:chair_id) %></th>
       <th><%= model_class.human_attribute_name(:post_id) %></th>
-      <th><%= model_class.human_attribute_name(:degree_id) %></th>
-      <th><%= model_class.human_attribute_name(:academic_title_id) %></th>
+      <th><%= model_class.human_attribute_name(:rating) %></th>
       <th><%= model_class.human_attribute_name(:head) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= link_to employee.id, employee_path(employee) %></td>
-        <td><%= employee.first_name %></td>
-        <td><%= employee.middle_name %></td>
-        <td><%= employee.last_name %></td>
-        <td><%= employee.chair_id %></td>
-        <td><%= employee.post_id %></td>
-        <td><%= employee.degree_id %></td>
-        <td><%= employee.academic_title_id %></td>
-        <td><%= employee.head %></td>
-        <td><%=l employee.created_at %></td>
+        <td><%= employee.id %></td>
+        <td><%= link_to employee.fio, employee_path(employee), :title => employee.rating(@last_year)  %></td>
+        <td><%= link_to employee.chair.name, chair_path(employee.chair), :title => '%.2f' % employee.chair.rating(@last_year) if employee.chair %></td>
+        <td><%= employee.post.name if employee.post %></td>
+        <td><%= employee.rating(@last_year) %></td>
+        <td><%= 'да - ' + '%.2f' % employee.head_rating(@last_year) if employee.head? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_employee_path(employee), :class => 'btn btn-mini' %>
