@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
+<table class="table table-striped datatable">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
@@ -22,7 +22,7 @@
         <td><%= link_to employee.chair.name, chair_path(employee.chair), :title => '%.2f' % employee.chair.rating(@last_year) if employee.chair %></td>
         <td><%= (link_to employee.post.name, "employees?" + "filtered=" + employee.post.id.to_s) if employee.post %></td>
         <td><%= employee.rating(@last_year) %></td>
-        <td><%= 'да - ' + '%.2f' % employee.head_rating(@last_year) if employee.head? %></td>
+        <td><%= employee.head_rating(@last_year).round(2) if employee.head? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_employee_path(employee), :class => 'btn btn-mini' %>
