@@ -10,7 +10,8 @@ class Employee < ActiveRecord::Base
   end
   
   def rating(year)
-    self.points.find_by_year(year).nil? ? 0 : self.points.find_by_year(year).rating 
+    p = self.points.find_by_year(year)
+    p.nil? ? 0 : p.rating
   end
   
   def head_rating(year)

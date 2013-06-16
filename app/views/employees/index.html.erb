@@ -18,9 +18,9 @@
     <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.id %></td>
-        <td><%= link_to employee.fio, employee_path(employee), :title => employee.rating(@last_year)  %></td>
+        <td><%= link_to employee.fio, employee_path(employee) %></td>
         <td><%= link_to employee.chair.name, chair_path(employee.chair), :title => '%.2f' % employee.chair.rating(@last_year) if employee.chair %></td>
-        <td><%= employee.post.name if employee.post %></td>
+        <td><%= (link_to employee.post.name, "employees?" + "filtered=" + employee.post.id.to_s) if employee.post %></td>
         <td><%= employee.rating(@last_year) %></td>
         <td><%= 'да - ' + '%.2f' % employee.head_rating(@last_year) if employee.head? %></td>
         <td>

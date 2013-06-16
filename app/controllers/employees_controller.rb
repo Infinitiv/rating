@@ -5,15 +5,12 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @last_year = last_year
-    @stdevs = stdevs
-    @employees = Employee.all.sort_by{|e| e.rating(@last_year)}.reverse
+    params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered]).sort_by{|e| e.rating(@last_year)}.reverse : @employees = Employee.all.sort_by{|e| e.rating(@last_year)}.reverse
   end
 
   # GET /employees/1
   # GET /employees/1.json
   def show
-    @last_year = last_year
-    @stdevs = stdevs
   end
 
   # GET /employees/new
@@ -70,7 +67,7 @@ class EmployeesController < ApplicationController
     def set_employee
       @employee = Employee.find(params[:id])
     end
-
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:first_name, :middle_name, :last_name, :chair_id, :post_id, :degree_id, :academic_title_id, :head)
@@ -80,10 +77,4 @@ class EmployeesController < ApplicationController
       Point.maximum(:year)
     end
     
-    def stdevs
-      stdevs = {}
-      Point.all.map{|p| p.year}.uniq.each do |y|
-	stdevs[y] = Employee.all.map{|e| e.rating(y)}.stdev
-      end
-    end
 end
