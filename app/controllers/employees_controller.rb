@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_last_year, only: [:index, :show]
 
   # GET /employees
   # GET /employees.json
   def index
-    @last_year = last_year
     params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered]).sort_by{|e| e.rating(@last_year)}.reverse : @employees = Employee.all.sort_by{|e| e.rating(@last_year)}.reverse
   end
 
@@ -73,8 +73,8 @@ class EmployeesController < ApplicationController
       params.require(:employee).permit(:first_name, :middle_name, :last_name, :chair_id, :post_id, :degree_id, :academic_title_id, :head)
     end
     
-    def last_year
-      Point.maximum(:year)
+    def set_last_year
+      @last_year = Point.maximum(:year)
     end
     
 end
