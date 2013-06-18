@@ -1,4 +1,5 @@
 Rating::Application.routes.draw do
+  get "reports/index"
   resources :points
 
   resources :employees
