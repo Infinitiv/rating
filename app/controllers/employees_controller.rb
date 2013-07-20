@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered]).sort_by{|e| e.rating(@last_year)}.reverse : @employees = Employee.all.sort_by{|e| e.rating(@last_year)}.reverse
+    params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered], :include => [:points, :post, :chair]) : @employees = Employee.all(:include => [:points, :post, :chair])
   end
 
   # GET /employees/1

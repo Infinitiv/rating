@@ -4,11 +4,6 @@ class Chair < ActiveRecord::Base
   has_many :points, :through => :employees
   
   def rating(year)
-    rating = 0.0
-    e = self.employees
-    e.each do |e|
-      rating += e.rating(year)
-    end
-    e.count > 0 ? rating = rating/e.count : rating = 0.0
+    self.employees.count == 0 ? 0.0 : self.points.where(year: year).to_a.sum(&:rating)/self.employees.count
   end
 end
