@@ -1,6 +1,7 @@
 class Chair < ActiveRecord::Base
   belongs_to :faculty
   has_many :employees
+  has_many :points, :through => :employees
   
   def rating(year)
     rating = 0.0

@@ -6,7 +6,7 @@ class Employee < ActiveRecord::Base
   has_many :points
   
   def fio
-    "#{self.last_name} #{self.first_name} #{self.middle_name}"
+   [last_name, first_name, middle_name].compact.join(' ')
   end
   
   def rating(year)
