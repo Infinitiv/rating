@@ -11,15 +11,25 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
+    @points = @employee.points
+    @point = @employee.points.new
   end
 
   # GET /employees/new
   def new
     @employee = Employee.new
+    @chairs = Chair.all.order(:name)
+    @posts = Post.all.order(:name)
+    @degrees = Degree.all.order(:name)
+    @academic_titles = AcademicTitle.all.order(:name)
   end
 
   # GET /employees/1/edit
   def edit
+    @chairs = Chair.all.order(:name)
+    @posts = Post.all.order(:name)
+    @degrees = Degree.all.order(:name)
+    @academic_titles = AcademicTitle.all.order(:name)
   end
 
   # POST /employees

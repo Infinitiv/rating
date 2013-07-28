@@ -1,10 +1,11 @@
-class PointsController < ApplicationController
+class PointsController < EmployeesController
+  before_action :set_employee, only: [:index, :create, :new, :show, :edit, :destroy, :update]
   before_action :set_point, only: [:show, :edit, :update, :destroy]
 
   # GET /points
   # GET /points.json
   def index
-    @points = Point.all
+    @points = @employee.points
   end
 
   # GET /points/1
@@ -14,7 +15,7 @@ class PointsController < ApplicationController
 
   # GET /points/new
   def new
-    @point = Point.new
+    @point = @employee.points.new
   end
 
   # GET /points/1/edit
@@ -24,11 +25,11 @@ class PointsController < ApplicationController
   # POST /points
   # POST /points.json
   def create
-    @point = Point.new(point_params)
+    @point = @employee.points.new(point_params)
 
     respond_to do |format|
       if @point.save
-        format.html { redirect_to @point, notice: 'Point was successfully created.' }
+        format.html { redirect_to @point.employee, notice: 'Point was successfully created.' }
         format.json { render action: 'show', status: :created, location: @point }
       else
         format.html { render action: 'new' }
@@ -56,7 +57,7 @@ class PointsController < ApplicationController
   def destroy
     @point.destroy
     respond_to do |format|
-      format.html { redirect_to points_url }
+      format.html { redirect_to @employee }
       format.json { head :no_content }
     end
   end
@@ -64,9 +65,13 @@ class PointsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_point
-      @point = Point.find(params[:id])
+      @point = @employee.points.find(params[:id])
     end
-
+    
+    def set_employee
+      @employee = Employee.find(params[:employee_id])
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def point_params
       params.require(:point).permit(:qualification, :learning, :science, :clinic, :social, :year, :employee_id)

@@ -20,31 +20,31 @@
   <div class="control-group">
     <%= f.label :chair_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :chair_id, :class => 'text_field' %>
+      <%= f.select :chair_id, options_for_select= @chairs.collect {|p| [t(p.name, :scope => [:chairs]), p.id] }, {:include_blank => ''}, :class => 'select_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :post_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :post_id, :class => 'text_field' %>
+      <%= f.select :post_id, options_for_select= @posts.collect {|p| [t(p.name, :scope => [:posts]), p.id] }, {:include_blank => ''}, :class => 'select_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :degree_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :degree_id, :class => 'text_field' %>
+      <%= f.select :degree_id, options_for_select= @degrees.collect {|p| [t(p.name, :scope => [:degrees]), p.id] }, {:include_blank => ''}, :class => 'select_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :academic_title_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :academic_title_id, :class => 'text_field' %>
+      <%= f.select :academic_title_id, options_for_select= @academic_titles.collect {|p| [t(p.name, :scope => [:academic_titles]), p.id] }, {:include_blank => ''}, :class => 'select_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :head, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :head, :class => 'text_field' %>
+      <%= f.check_box :head, :class => 'check_box' %>
     </div>
   </div>
 

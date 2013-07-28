@@ -1,8 +1,9 @@
 Rating::Application.routes.draw do
   get "reports/index"
-  resources :points
 
-  resources :employees
+  resources :employees do
+    resources :points
+  end
 
   resources :faculties
 
@@ -13,7 +14,7 @@ Rating::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  root 'reports#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,4 +1,4 @@
-<%= form_for @point, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @point, url: employee_points_path(@employee), :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :qualification, :class => 'control-label' %>
     <div class="controls">
@@ -32,19 +32,13 @@
   <div class="control-group">
     <%= f.label :year, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :year, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :employee_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :employee_id, :class => 'text_field' %>
+      <%= f.number_field :year, :class => 'number_field'%>
     </div>
   </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                points_path, :class => 'btn' %>
+                employee_points_path(@employee), :class => 'btn' %>
   </div>
 <% end %>
