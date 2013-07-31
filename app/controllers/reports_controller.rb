@@ -1,34 +1,36 @@
 class ReportsController < ApplicationController
   def index
-  	@average_rating = average_rating
-  	@average_rating_assistants = average_rating_assistants
-  	@sigma = sigma
+    @years = Point.all.map(&:year).uniq
+    @average_rating = {}
+    @average_rating_assistant = {}
+    @average_rating_docent = {}
+    @average_rating_professor = {}
+    @average_rating_st_teacher = {}
+    @sigma = {}
+    @years.each do |year|
+      @average_rating[year] = average_rating(year)
+      @average_rating_assistant[year] = average_rating(year, 1)
+      @average_rating_st_teacher[year] = "%.2f" % average_rating(year, 2)
+      @average_rating_docent[year] = "%.2f" % average_rating(year, 3)
+      @average_rating_professor[year] = "%.2f" % average_rating(year, 4)
+      @sigma[year] = sigma(year)
+    end
   end
 
   private
-  def sigma
-	sd ||= Point.first.stdevs[2013]
-	sd.each do |s|
-		sigma[1] = average_rating + s
-		sigma[2] = average_rating + 2 * s
-		sigma[3] = average_rating + 3 * s
-	end
+  def sigma(year)
+    sigma = {}
+    sd = Point.first.stdevs[year][1]
+    ar = average_rating(year)
+    sigma[1] = "%.2f" % (ar.to_f + sd)
+    sigma[2] = "%.2f" % (ar.to_f + 2 * sd)
+    sigma[3] = "%.2f" % (ar.to_f + 3 * sd)
+    sigma
   end
-  def average_rating
-  	sum = 0.0
-  	employees = Employee.all
-  	employees.each do |e|
-  		sum += e.rating(2013)
-  	end
-  	(sum/employees.count).round(2)
+  
+  def average_rating(year, post = nil)
+    ratings = post ? Point.where(year: year).joins(:employee).where(employees: {post_id: post}).map{|p| p.rating} : Point.where(year: year).joins(:employee).where.not(employees: {post_id: post}).map{|p| p.rating}
+    sum = "%.2f" % (ratings.sum/ratings.length.to_f)
   end
 
-  def average_rating_assistants
-  	sum = 0.0
-  	employees = Employee.find_all_by_post_id(1)
-  	employees.each do |e|
-  		sum += e.rating(2013)
-  	end
-  	(sum/employees.count).round(2)  	
-  end
 end

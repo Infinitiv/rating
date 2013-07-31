@@ -2,6 +2,12 @@
 
 <h2>Средние значения рейтинга</h2>
 <dl>
-	<dt>Общий рейтинг</dt>
-	<dd><%= "#{@average_rating}" '1 сгима = ' "#{@sigma[1]}" '2 сигмы = ' "#{@sigma[2]}" %></dd>
+<% @years.each do |year| %>
+	<dt><%= "Рейтинг #{year}" %></dt>
+	<dd><%= "Средний рейтинг #{@average_rating[year]}" %></dd>
+	<dd><%= "Средний рейтинг ассистeнтов #{@average_rating_assistant[year]}" %></dd>
+	<dd><%= "Средний рейтинг старших преподавателей #{@average_rating_st_teacher[year]}" %></dd>
+	<dd><%= "Средний рейтинг доцентов #{@average_rating_docent[year]}" %></dd>
+	<dd><%= "Средний рейтинг профессоров #{@average_rating_professor[year]}" %></dd>
+<% end %>
 </dl>
