@@ -11,7 +11,7 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
-    @points = @employee.points
+    @points = @employee.points.order(:year)
     @point = @employee.points.new
     @graph_points = graph_points(@points)
   end
@@ -96,6 +96,12 @@ class EmployeesController < ApplicationController
           h[key] ||= [] unless key == "id"
           h[key] += [value] unless key == "id"
         end
+      end
+      points.each do |point|
+        h["Inqualification rating"] ||= [] unless point.id == nil
+        h["Inqualification rating"] += [point.inqualification_rating] unless point.id == nil
+        h["Rating"] ||= [] unless point.id == nil
+        h["Rating"] += [point.rating] unless point.id == nil
       end
       h.each do |key, value|
         graph_points << [key.humanize] + value
