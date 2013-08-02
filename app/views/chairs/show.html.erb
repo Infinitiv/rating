@@ -7,7 +7,9 @@
   <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
   <dd><%= '%.2f' % @chair.rating(@last_year) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:faculty_id) %>:</strong></dt>
-  <dd><%= @chair.faculty.name if @chair.faculty %></dd>
+  <dd><%= @chair.faculty ? @chair.faculty.name : "-"  %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:clinic) %>:</strong></dt>
+  <dd><%= @chair.clinic ? "клиническая" : "теоретическая" %></dd>
 </dl>
 <table class="table table-striped">
   <thead>

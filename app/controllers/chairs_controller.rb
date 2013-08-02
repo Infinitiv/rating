@@ -73,6 +73,6 @@ class ChairsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chair_params
-      params.require(:chair).permit(:name, :faculty_id)
+      params.require(:chair).permit(:name, :faculty_id, :clinic)
     end
 end

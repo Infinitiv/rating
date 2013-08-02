@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130614061024) do
+ActiveRecord::Schema.define(version: 20130802174744) do
 
   create_table "academic_titles", force: true do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20130614061024) do
     t.integer  "faculty_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "clinic"
   end
 
   add_index "chairs", ["faculty_id"], name: "index_chairs_on_faculty_id"

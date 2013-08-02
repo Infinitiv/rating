@@ -7,6 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:faculty_id) %></th>
+      <th><%= model_class.human_attribute_name(:clinic) %></th>
       <th><%= model_class.human_attribute_name(:rating) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= link_to chair.name, chair_path(chair) %></td>
         <td><%= (link_to chair.faculty.name, "chairs?" + "filtered=" + chair.faculty.id.to_s) if chair.faculty %></td>
+        <td><%= chair.clinic ? "клиническая" : "теоретическая" %></td>
         <td><%= '%.2f' % chair.rating(@last_year) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

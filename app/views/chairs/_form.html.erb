@@ -8,7 +8,11 @@
   <div class="control-group">
     <%= f.label :faculty_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :faculty_id, options_for_select(@faculties.collect {|p| [p.name, p.id]}), :include_blank => '', :class => 'select_field' %>
+      <%= f.select :faculty_id, options_for_select(@faculties.collect {|p| [p.name, p.id]}, @chair.faculty_id), :include_blank => '', :class => 'select_field' %>
+    </div>
+    <%= f.label :clinic, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :clinic %>
     </div>
   </div>
 
