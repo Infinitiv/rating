@@ -6,7 +6,7 @@ class Point < ActiveRecord::Base
   end
   
   def inqualification_rating
-    self.learning + self.science + self.clinic + self.social
+    learning + science + clinic + social
   end
   
   def stdevs

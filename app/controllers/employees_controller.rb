@@ -13,6 +13,7 @@ class EmployeesController < ApplicationController
   def show
     @points = @employee.points
     @point = @employee.points.new
+    @graph_points = graph_points(@points)
   end
 
   # GET /employees/new
@@ -85,6 +86,21 @@ class EmployeesController < ApplicationController
     
     def set_last_year
       @last_year = Point.maximum(:year)
+    end
+
+    def graph_points(points)
+      graph_points = []
+      h = {}
+      points.select("year, qualification, learning, science, clinic, social").each do |point|
+        point.attributes.each do |key, value|
+          h[key] ||= [] unless key == "id"
+          h[key] += [value] unless key == "id"
+        end
+      end
+      h.each do |key, value|
+        graph_points << [key.humanize] + value
+      end
+      graph_points
     end
     
 end
