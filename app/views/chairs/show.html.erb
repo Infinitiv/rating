@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
   <dd><%= '%.2f' % @chair.rating(@last_year) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:faculty_id) %>:</strong></dt>
-  <dd><%= @chair.faculty ? @chair.faculty.name : "-"  %></dd>
+  <dd><%= @chair.faculty ? link_to(@chair.faculty.name, "/chairs?" + "filtered=" + @chair.faculty.id.to_s) : "-"  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:clinic) %>:</strong></dt>
   <dd><%= @chair.clinic ? "клиническая" : "теоретическая" %></dd>
 </dl>

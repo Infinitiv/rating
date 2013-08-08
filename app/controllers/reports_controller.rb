@@ -1,20 +1,9 @@
 class ReportsController < ApplicationController
   def index
     @years = Point.all.map(&:year).uniq
-    @average_rating = {}
-    @average_rating_assistant = {}
-    @average_rating_docent = {}
-    @average_rating_professor = {}
-    @average_rating_st_teacher = {}
-    @sigma = {}
-    @years.each do |year|
-      @average_rating[year] = average_rating(year)
-      @average_rating_assistant[year] = average_rating(year, 1)
-      @average_rating_st_teacher[year] = "%.2f" % average_rating(year, 2)
-      @average_rating_docent[year] = "%.2f" % average_rating(year, 3)
-      @average_rating_professor[year] = "%.2f" % average_rating(year, 4)
-      @sigma[year] = sigma(year)
-    end
+    @posts = Post.all
+    @faculties = Faculty.all
+    @average_rating = average_rating
   end
 
   private
@@ -28,9 +17,32 @@ class ReportsController < ApplicationController
     sigma
   end
   
-  def average_rating(year, post = nil)
-    ratings = post ? Point.where(year: year).joins(:employee).where(employees: {post_id: post}).map{|p| p.rating} : Point.where(year: year).joins(:employee).where.not(employees: {post_id: post}).map{|p| p.rating}
-    sum = "%.2f" % (ratings.sum/ratings.length.to_f)
+  def average_rating
+    average_rating = {}
+    years = Point.all.map(&:year).uniq
+    posts = Post.all.map(&:id).uniq
+    faculties = Faculty.all.map(&:id).uniq
+    years.each do |year|
+	  average_rating[year] ||= {}
+	  ratings = Point.where(year: year).joins(:employee).joins(:chair).map{|p| p.rating}
+	  sum = sum(ratings)
+	  average_rating[year][:total] = sum if sum
+      posts.each do |post|
+	  average_rating[year][post] ||= {}
+	  ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}).map{|p| p.rating}
+	  sum = sum(ratings)
+	  average_rating[year][post][:total] = sum if sum
+	faculties.each do |faculty|
+	  ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {faculty_id: faculty}).map{|p| p.rating}
+	  sum = sum(ratings)
+	  average_rating[year][post][faculty] = sum if sum
+	end
+      end
+    end
+    average_rating
   end
-
+  
+  def sum(ratings)
+    sum = ratings.length > 0 ? "%.2f" % (ratings.sum/ratings.length.to_f) : nil
+  end
 end
