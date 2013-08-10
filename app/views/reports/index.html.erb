@@ -1,18 +1,29 @@
 <h1>Отчеты</h1>
 
 <h2>Средние значения рейтинга</h2>
-<dl>
+
 <% @years.each do |year| %>
-  <dt><%= year %></dt>
-  <dt><%= "Общий рейтинг #{@average_rating[year][:total]}" %></dt>
-  <dt>Рейтинг по должностям</dt>
+  <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total]}" %></h3>
+  <ul>
   <% @posts.each do |post| %>
-    <dd><%= "#{post.name} #{@average_rating[year][post.id][:total]}" %></dd>
-    <dt>Рейтинг по факультетам</dt>
+      
+      <li><%= "#{post.name} #{@average_rating[year][post.id][:total]}" %>
+
+    <li>рейтинг по факультетам
+    <ul>
       <% @faculties.each do |faculty| %>
-	<dd><%= "#{faculty.name} #{@average_rating[year][post.id][faculty.id]}" %></dd>
+	       <li><%= "#{faculty.name} #{@average_rating[year][post.id][faculty.id]}" %>
       <% end %>
+    </ul>
+      <li>рейтинг по кафедрам
+      <ul>
+        <li><%= "теоретические #{@average_rating[year][post.id][:teoretical]}" %>
+        <li><%= "клинические #{@average_rating[year][post.id][:clinical]}" %>
+      </ul>
+      <hr />
   <% end %>
+</ul>
 <% end %>
-</dl>
+
+
 <pre><%= @average_rating %>

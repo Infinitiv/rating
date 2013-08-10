@@ -37,6 +37,12 @@ class ReportsController < ApplicationController
 	  sum = sum(ratings)
 	  average_rating[year][post][faculty] = sum if sum
 	end
+    ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {clinic: true}).map{|p| p.rating}
+    sum = sum(ratings)
+    average_rating[year][post][:clinical] = sum if sum
+    ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {clinic: nil}).map{|p| p.rating}
+    sum = sum(ratings)
+    average_rating[year][post][:teoretical] = sum if sum
       end
     end
     average_rating
