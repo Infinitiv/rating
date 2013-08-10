@@ -3,22 +3,22 @@
 <h2>Средние значения рейтинга</h2>
 
 <% @years.each do |year| %>
-  <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total]}" %></h3>
+  <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total][0]} (#{@average_rating[year][:total][1]})" %></h3>
   <ul>
   <% @posts.each do |post| %>
       
-      <li><%= "#{post.name} #{@average_rating[year][post.id][:total]}" %>
+      <li><%= "#{post.name} #{@average_rating[year][post.id][:total][0]} (#{@average_rating[year][post.id][:total][1]})" %>
 
     <li>рейтинг по факультетам
     <ul>
       <% @faculties.each do |faculty| %>
-	       <li><%= "#{faculty.name} #{@average_rating[year][post.id][faculty.id]}" %>
+	       <li><%= "#{faculty.name} #{@average_rating[year][post.id][faculty.id][0]} (#{@average_rating[year][post.id][faculty.id][1]})" %>
       <% end %>
     </ul>
       <li>рейтинг по кафедрам
       <ul>
-        <li><%= "теоретические #{@average_rating[year][post.id][:teoretical]}" %>
-        <li><%= "клинические #{@average_rating[year][post.id][:clinical]}" %>
+        <li><%= "теоретические #{@average_rating[year][post.id][:teoretical][0]} (#{@average_rating[year][post.id][:teoretical][1]})" %>
+        <li><%= "клинические #{@average_rating[year][post.id][:clinical][0]} (#{@average_rating[year][post.id][:clinical][1]})" %>
       </ul>
       <hr />
   <% end %>
