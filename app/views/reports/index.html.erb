@@ -4,26 +4,84 @@
 
 <% @years.each do |year| %>
   <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total][0]} (#{@average_rating[year][:total][1]})" %></h3>
-  <ul>
-  <% @posts.each do |post| %>
-      
-      <li><%= "#{post.name} #{@average_rating[year][post.id][:total][0]} (#{@average_rating[year][post.id][:total][1]})" %>
-
-    <li>рейтинг по факультетам
-    <ul>
-      <% @faculties.each do |faculty| %>
-	       <li><%= "#{faculty.name} #{@average_rating[year][post.id][faculty.id][0]} (#{@average_rating[year][post.id][faculty.id][1]})" %>
-      <% end %>
-    </ul>
-      <li>рейтинг по кафедрам
-      <ul>
-        <li><%= "теоретические #{@average_rating[year][post.id][:teoretical][0]} (#{@average_rating[year][post.id][:teoretical][1]})" %>
-        <li><%= "клинические #{@average_rating[year][post.id][:clinical][0]} (#{@average_rating[year][post.id][:clinical][1]})" %>
-      </ul>
-      <hr />
+<table class="table">
+<thead>
+<tr>
+<th>
+Должность
+</th>
+<th>
+Общий рейтинг
+</th>
+  <% @faculties.each do |faculty| %>
+<th>
+<%= faculty.name %>
+</th>
   <% end %>
-</ul>
+<th>
+Теоретические
+</th>
+<th>
+Клинические
+</th>
+</tr>
+</thead>
+<tbody>
+  <% @posts.each do |post| %>
+<tr>
+<td>
+<%= post.name %>
+</td>
+<td>
+  <%= "#{@average_rating[year][post.id][:total][0]} (#{@average_rating[year][post.id][:total][1]})" if @average_rating[year][post.id][:total][0] %>
+</td>
+  <% @faculties.each do |faculty| %>
+<td>
+  <%= "#{@average_rating[year][post.id][faculty.id][0]} (#{@average_rating[year][post.id][faculty.id][1]})" if @average_rating[year][post.id][faculty.id][0] %>
+</td>
+  <% end %>
+<td>
+  <%= "#{@average_rating[year][post.id][:teoretical][0]} (#{@average_rating[year][post.id][:teoretical][1]})" if @average_rating[year][post.id][:teoretical][0] %>
+</td>
+<td>
+  <%= "#{@average_rating[year][post.id][:clinical][0]} (#{@average_rating[year][post.id][:clinical][1]})" if @average_rating[year][post.id][:clinical][0] %>
+
+</td>
+</tr>
+  <% end %>
+</tbody>
+</table>
+<h3>Показатели рейтинга для преподавателей различных категорий</h3>
+<table class="table">
+<thead>
+    <tr>
+    <th>Должность
+    </th>
+    <th>Менее +1 сигмы
+    </th>
+        <th>+1 - +2 сигмы
+    </th>
+        <th>Более +2 сигм
+    </th>
+  </tr>
+</thead>
+<tbody>
+    <% @posts.each do |post| %>
+  <tr>
+        <td>
+      <%= post.name %>
+    </td>
+    <td>
+      <%= "#{@average_rating[year][post.id][:sigma][0]}%" %>
+    </td>
+        <td>
+      <%= "#{@average_rating[year][post.id][:sigma][1]}%" %>
+    </td>
+        <td>
+      <%= "#{@average_rating[year][post.id][:sigma][2]}%" %>
+    </td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
 <% end %>
-
-
-<pre><%= @average_rating %>

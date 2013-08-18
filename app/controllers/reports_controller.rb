@@ -7,13 +7,15 @@ class ReportsController < ApplicationController
   end
 
   private
-  def sigma(year)
-    sigma = {}
-    sd = Point.first.stdevs[year][1]
-    ar = average_rating(year)
-    sigma[1] = "%.2f" % (ar.to_f + sd)
-    sigma[2] = "%.2f" % (ar.to_f + 2 * sd)
-    sigma[3] = "%.2f" % (ar.to_f + 3 * sd)
+  def sigma(ratings)
+    sigma = []
+    ratings.each do |rating|
+      stdev = rating.length > 0 ? rating.stdev : 0
+      average = rating.length > 0 ? rating.sum/rating.length.to_f : 0
+      sigma += ["%.2f" % (rating.select{|p| p < (average.to_f + stdev)}.count.to_f*100/rating.count)]
+      sigma += ["%.2f" % (rating.select{|p| p > (average.to_f + stdev) and p < (average.to_f + 2 * stdev)}.count.to_f*100/rating.count)]
+      sigma += ["%.2f" % (rating.select{|p| p > (average.to_f + 2 * stdev)}.count.to_f*100/rating.count)]
+    end
     sigma
   end
   
@@ -32,6 +34,8 @@ class ReportsController < ApplicationController
 	  ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}).map{|p| [p.rating, p.inqualification_rating]}.transpose
 	  sum = sum(ratings)
 	  average_rating[year][post][:total] = sum if sum
+	  sigma = sigma(ratings)
+	  average_rating[year][post][:sigma] = sigma if sigma
 	faculties.each do |faculty|
 	  ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {faculty_id: faculty}).map{|p| [p.rating, p.inqualification_rating]}.transpose
 	  sum = sum(ratings)
@@ -40,7 +44,7 @@ class ReportsController < ApplicationController
     ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {clinic: true}).map{|p| [p.rating, p.inqualification_rating]}.transpose
     sum = sum(ratings)
     average_rating[year][post][:clinical] = sum if sum
-    ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {clinic: nil}).map{|p| [p.rating, p.inqualification_rating]}.transpose
+    ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {clinic: false}).map{|p| [p.rating, p.inqualification_rating]}.transpose
     sum = sum(ratings)
     average_rating[year][post][:teoretical] = sum if sum
       end
