@@ -6,6 +6,10 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered], :include => [:points, :post, :chair]) : @employees = Employee.all(:include => [:points, :post, :chair])
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   # GET /employees/1
@@ -73,6 +77,11 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def import
+    Employee.import(params[:file])
+    redirect_to employees_url, notice: "Employees imported."
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
@@ -107,6 +116,5 @@ class EmployeesController < ApplicationController
         graph_points << [key.humanize] + value
       end
       graph_points
-    end
-    
+    end  
 end

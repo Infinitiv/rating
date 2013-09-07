@@ -6,6 +6,11 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_employee_path,
             :class => 'btn btn-primary' %>
+  <%= link_to "Скачать", employees_path(format: "xls"), target: '_blank', :class => 'btn btn-primary' %>
+<%= form_tag import_employees_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", :class => 'btn btn-primary' %>
+<% end %>
 <table class="table table-striped datatable">
   <thead>
     <tr>

@@ -3,6 +3,7 @@ Rating::Application.routes.draw do
 
   resources :employees do
     resources :points
+    collection { post :import }
   end
 
   resources :faculties
