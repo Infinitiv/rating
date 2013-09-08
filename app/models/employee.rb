@@ -20,12 +20,13 @@ class Employee < ActiveRecord::Base
   end
   
   def self.import(file)
+  	accessible_attributes = ['first_name', 'middle_name', 'last_name', 'chair_id', 'post_id', 'degree_id', 'academic_title_id', 'head']
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      employee = find(row["id"]) || new
-      employee.attributes = row.to_hash.slice(:first_name, :middle_name, :last_name, :chair_id, :post_id, :degree_id, :academic_title_id, :head)
+      employee = find_by_id(row["id"].to_i) || new
+      employee.attributes = row.to_hash.slice(*accessible_attributes)
       employee.save!
     end
   end
