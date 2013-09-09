@@ -5,3 +5,4 @@ jQuery ->
   $('.datatable').dataTable
     sPaginationType: "full_numbers"
     bJQueryUI: true
+    aaSorting: [[3, "desc"]]

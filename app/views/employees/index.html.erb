@@ -14,7 +14,6 @@
 <table class="table table-striped datatable">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:fio) %></th>
       <th><%= model_class.human_attribute_name(:chair_id) %></th>
       <th><%= model_class.human_attribute_name(:post_id) %></th>
@@ -26,7 +25,6 @@
   <tbody>
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= employee.id %></td>
         <td><%= link_to employee.fio, employee_path(employee) %></td>
         <td><%= link_to employee.chair.name, chair_path(employee.chair), :title => '%.2f' % employee.chair.rating(@last_year) if employee.chair %></td>
         <td><%= (link_to employee.post.name, "employees?" + "filtered=" + employee.post.id.to_s) if employee.post %></td>
