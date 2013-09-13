@@ -1,6 +1,7 @@
 class PointsController < EmployeesController
   before_action :set_employee, only: [:index, :create, :new, :show, :edit, :destroy, :update]
   before_action :set_point, only: [:show, :edit, :update, :destroy]
+  before_action :require_editor
 
   # GET /points
   # GET /points.json

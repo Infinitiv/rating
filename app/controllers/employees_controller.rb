@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :set_last_year, only: [:index, :show]
+  before_action :require_viewer
 
   # GET /employees
   # GET /employees.json

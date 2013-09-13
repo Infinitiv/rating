@@ -1,4 +1,14 @@
 Rating::Application.routes.draw do
+  resources :groups
+
+  resources :users
+  
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    get 'logout' => :destroy
+  end
+  
   get "reports/index"
 
   resources :employees do

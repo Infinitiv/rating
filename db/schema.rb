@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130802174744) do
+ActiveRecord::Schema.define(version: 20130913180558) do
 
   create_table "academic_titles", force: true do |t|
     t.string   "name"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20130802174744) do
     t.datetime "updated_at"
   end
 
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.boolean  "administrator"
+    t.boolean  "editor"
+    t.boolean  "viewer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "points", force: true do |t|
     t.float    "qualification"
     t.float    "learning"
@@ -78,5 +87,15 @@ ActiveRecord::Schema.define(version: 20130802174744) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "login"
+    t.string   "password_digest"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["group_id"], name: "index_users_on_group_id"
 
 end
