@@ -1,36 +1,34 @@
 <%- model_class = Employee -%>
 <%- model_class_2 = Point -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= @employee.fio %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:fio) %>:</strong></dt>
-  <dd><%= @employee.fio %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:chair_id) %>:</strong></dt>
+  <dt><strong>Кафедра:</strong></dt>
   <dd><%= @employee.chair ? (link_to @employee.chair.name, @employee.chair) : '-' %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:post_id) %>:</strong></dt>
+  <dt><strong>Должность:</strong></dt>
   <dd><%= @employee.post ? @employee.post.name : '-'  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:degree_id) %>:</strong></dt>
+  <dt><strong>Ученая степень:</strong></dt>
   <dd><%= @employee.degree ? @employee.degree.name : '-'  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:academic_title_id) %>:</strong></dt>
+  <dt><strong>Ученое звание:</strong></dt>
   <dd><%= @employee.academic_title ? @employee.academic_title.name : '-' %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:head) %>:</strong></dt>
+  <dt><strong>Зав. кафедрой:</strong></dt>
   <dd><%= @employee.head? ? 'да, рейтинг ' + '%.2f' % @employee.head_rating(@last_year) : 'нет' %></dd>
 </dl>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class_2.human_attribute_name(:year) %></th>
-      <th><%= model_class_2.human_attribute_name(:qualification) %></th>
-      <th><%= model_class_2.human_attribute_name(:learning) %></th>
-      <th><%= model_class_2.human_attribute_name(:science) %></th>
-      <th><%= model_class_2.human_attribute_name(:clinic) %></th>
-      <th><%= model_class_2.human_attribute_name(:social) %></th>
-      <th><%= model_class_2.human_attribute_name(:inqualification_rating) %></th>
-      <th><%= model_class_2.human_attribute_name(:rating) %></th>
-      <th>Sigma</th>
+      <th>Год</th>
+      <th>Квалификация</th>
+      <th>Учебная работа</th>
+      <th>Научная работа</th>
+      <th>Клиническая работа</th>
+      <th>Общественная деятельность</th>
+      <th>Рейтинг без квалификации</th>
+      <th>Рейтинг</th>
+      <th>Сигмальное отклонение</th>
       <% if current_user_editor? %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>

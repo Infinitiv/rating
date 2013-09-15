@@ -4,22 +4,22 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
+  <dt><strong>Рейтинг:</strong></dt>
   <dd><%= '%.2f' % @chair.rating(@last_year) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:faculty_id) %>:</strong></dt>
+  <dt><strong>Факультет:</strong></dt>
   <dd><%= @chair.faculty ? link_to(@chair.faculty.name, "/chairs?" + "filtered=" + @chair.faculty.id.to_s) : "-"  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:clinic) %>:</strong></dt>
+  <dt><strong>Клиническая/теоретическая:</strong></dt>
   <dd><%= @chair.clinic ? "клиническая" : "теоретическая" %></dd>
 </dl>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:fio) %></th>
-      <th><%= Employee.human_attribute_name(:rating) %></th>
-      <th><%= model_class.human_attribute_name(:post_id) %></th>
-      <th><%= model_class.human_attribute_name(:degree_id) %></th>
-      <th><%= model_class.human_attribute_name(:academic_title_id) %></th>
-      <th><%= model_class.human_attribute_name(:head) %></th>
+      <th>Ф.И.О.</th>
+      <th>Рейтинг</th>
+      <th>Должность</th>
+      <th>Ученая степень</th>
+      <th>Ученое звание</th>
+      <th>Зав. кафедрой</th>
       <% if current_user_editor? %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>

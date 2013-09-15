@@ -1,14 +1,14 @@
 <%- model_class = Chair -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Кафедры</h1>
 </div>
 <table class="table table-striped datatable">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:faculty_id) %></th>
-      <th><%= model_class.human_attribute_name(:clinic) %></th>
-      <th><%= model_class.human_attribute_name(:rating) %></th>
+      <th>Название</th>
+      <th>Факультет</th>
+      <th>Клиническая/теоретическая</th>
+      <th>Рейтинг</th>
       <% if current_user_editor? %>
 	<th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>

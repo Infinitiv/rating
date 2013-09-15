@@ -1,6 +1,6 @@
 <%- model_class = Employee -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Сотрудники</h1>
 </div>
 <% if current_user_editor? %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
@@ -17,11 +17,11 @@
 <table class="table table-striped datatable">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:fio) %></th>
-      <th><%= model_class.human_attribute_name(:chair_id) %></th>
-      <th><%= model_class.human_attribute_name(:post_id) %></th>
-      <th><%= model_class.human_attribute_name(:rating) %></th>
-      <th><%= model_class.human_attribute_name(:head) %></th>
+      <th>Ф.И.О.</th>
+      <th>Кафедра</th>
+      <th>Должность</th>
+      <th>Рейтинг</th>
+      <th>Зав. кафедрой</th>
       <% if current_user_editor? %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
