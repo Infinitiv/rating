@@ -9,7 +9,9 @@
       <th><%= model_class.human_attribute_name(:faculty_id) %></th>
       <th><%= model_class.human_attribute_name(:clinic) %></th>
       <th><%= model_class.human_attribute_name(:rating) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% if current_user_editor? %>
+	<th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -19,20 +21,23 @@
         <td><%= (link_to chair.faculty.name, "chairs?" + "filtered=" + chair.faculty.id.to_s) if chair.faculty %></td>
         <td><%= chair.clinic ? "клиническая" : "теоретическая" %></td>
         <td><%= '%.2f' % chair.rating(@last_year) %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_chair_path(chair), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      chair_path(chair),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+	<% if current_user_editor? %>
+	  <td>
+	    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+			edit_chair_path(chair), :class => 'btn btn-mini' %>
+	    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+			chair_path(chair),
+			:method => :delete,
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+			:class => 'btn btn-mini btn-danger' %>
+	  </td>
+	<% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<% if current_user_editor? %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_chair_path,
             :class => 'btn btn-primary' %>
+<% end %>
