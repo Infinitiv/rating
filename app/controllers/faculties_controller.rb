@@ -1,6 +1,7 @@
 class FacultiesController < ApplicationController
   before_action :set_faculty, only: [:show, :edit, :update, :destroy]
   before_action :require_viewer
+  before_action :require_editor, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /faculties
   # GET /faculties.json

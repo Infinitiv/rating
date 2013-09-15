@@ -24,22 +24,22 @@ class ApplicationController < ActionController::Base
   
   def require_viewer
     unless current_user_viewer?
-      flash[:error] = "You mast have viewer permissions"
-      redirect_to index
+      flash[:error] = "You mast have viewer`s permissions"
+      redirect_to :back
     end
   end
   
   def require_editor
     unless current_user_editor?
-      flash[:error] = "You mast have editor permissions"
-      redirect_to index
+      flash[:error] = "You mast have editor`s permissions"
+      redirect_to :back
     end
   end
   
   def require_administrator
     unless current_user_administrator?
-      flash[:error] = "You mast have administrator permissions"
-      redirect_to login_path
+      flash[:error] = "You mast have administrator`s permissions"
+      redirect_to :back
     end
   end 
   

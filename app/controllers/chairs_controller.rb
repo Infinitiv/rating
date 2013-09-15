@@ -1,6 +1,7 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :edit, :update, :destroy]
   before_action :require_viewer
+  before_action :require_editor, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /chairs
   # GET /chairs.json

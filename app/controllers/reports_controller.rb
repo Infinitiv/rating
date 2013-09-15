@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   skip_before_action :require_login
+  
   def index
     @years = Point.all.map(&:year).uniq
     @posts = Post.all
