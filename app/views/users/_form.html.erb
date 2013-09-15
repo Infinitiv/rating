@@ -20,7 +20,7 @@
   <div class="control-group">
     <%= f.label :group_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :group_id, :class => 'text_field' %>
+      <%= f.select :group_id, options_for_select= @groups.collect {|p| [t(p.name, :scope => [:groups]), p.id] }, {:include_blank => ''} %>
     </div>
   </div>
 

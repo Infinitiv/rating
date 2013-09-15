@@ -16,10 +16,12 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @groups = Group.order(:name).all
   end
 
   # GET /users/1/edit
   def edit
+    @groups = Group.order(:name).all
   end
 
   # POST /users
