@@ -16,7 +16,7 @@ class Employee < ActiveRecord::Base
   
   def head_rating(year)
     head_rating = 0.0
-    self.head? ? head_rating = self.rating(year) + self.chair.rating(year)/2 : head_rating = 0.0
+    self.head? ? head_rating = self.rating(year) + self.chair.rating[year]["rating"]/2 : head_rating = 0.0
   end
   
   def self.import(file)

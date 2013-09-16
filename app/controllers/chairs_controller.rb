@@ -7,13 +7,14 @@ class ChairsController < ApplicationController
   # GET /chairs.json
   def index
     @last_year = Point.maximum(:year)
-    params[:filtered] ? @chairs = Chair.find_all_by_faculty_id(params[:filtered]).sort_by{|c| c.rating(@last_year)}.reverse : @chairs = Chair.all.sort_by{|c| c.rating(@last_year)}.reverse
+    params[:filtered] ? @chairs = Chair.find_all_by_faculty_id(params[:filtered]) : @chairs = Chair.all
   end
 
   # GET /chairs/1
   # GET /chairs/1.json
   def show
     @last_year = Point.maximum(:year)
+    @names = Point.attribute_names - ["id", "created_at", "updated_at", "year", "employee_id"] + ["inqualification_rating", "rating"]
   end
 
   # GET /chairs/new

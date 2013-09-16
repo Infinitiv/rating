@@ -5,7 +5,25 @@
 
 <dl class="dl-horizontal">
   <dt><strong>Рейтинг:</strong></dt>
-  <dd><%= '%.2f' % @chair.rating(@last_year) %></dd>
+<dd><table class="table">
+<thead><tr>
+<th></th>
+<% @names.each do |n| %>
+  <th><%= n %></th>
+<% end %>
+</tr>
+</thead>
+<tbody>
+<% @chair.rating.each do |k, v| %>
+<tr>
+  <td><%= k %></td>
+  <% v.each do |n, m| %>
+<td><%= '%.2f' % m %></td>
+<% end %>
+</tr>
+<% end %>
+</tbody>
+</table></dd>
   <dt><strong>Факультет:</strong></dt>
   <dd><%= @chair.faculty ? link_to(@chair.faculty.name, "/chairs?" + "filtered=" + @chair.faculty.id.to_s) : "-"  %></dd>
   <dt><strong>Клиническая/теоретическая:</strong></dt>

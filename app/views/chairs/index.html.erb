@@ -20,7 +20,7 @@
         <td><%= link_to chair.name, chair_path(chair) %></td>
         <td><%= (link_to chair.faculty.name, "chairs?" + "filtered=" + chair.faculty.id.to_s) if chair.faculty %></td>
         <td><%= chair.clinic ? "клиническая" : "теоретическая" %></td>
-        <td><%= '%.2f' % chair.rating(@last_year) %></td>
+        <td><%= '%.2f' % chair.rating[@last_year]["rating"] %></td>
 	<% if current_user_editor? %>
 	  <td>
 	    <%= link_to t('.edit', :default => t("helpers.links.edit")),
