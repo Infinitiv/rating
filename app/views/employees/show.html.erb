@@ -33,7 +33,7 @@
       <th>Рейтинг без квалификации</th>
       <th>Рейтинг</th>
       <th>Сигмальное отклонение</th>
-      <% if current_user_editor? %>
+      <% if @editor_permission %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
     </tr>
@@ -50,7 +50,7 @@
         <td><%= p.inqualification_rating %></td>
         <td><%= p.rating %></td>
         <td><%= p.sigma(p.rating, p.year) %></td>
-	<% if current_user_editor? %>
+	<% if @editor_permission %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_employee_point_path(@employee.id, p), :class => 'btn btn-mini' %>
@@ -68,7 +68,7 @@
 
 <div id='chart_div'>
 </div>
-<% if current_user_editor? %>
+<% if @editor_permission %>
 <%- model_class = Point -%>
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
