@@ -9,7 +9,7 @@
       <th>Факультет</th>
       <th>Клиническая/теоретическая</th>
       <th>Рейтинг</th>
-      <% if current_user_editor? %>
+      <% if @editor_permission %>
 	<th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
     </tr>
@@ -21,7 +21,7 @@
         <td><%= (link_to chair.faculty.name, "chairs?" + "filtered=" + chair.faculty.id.to_s) if chair.faculty %></td>
         <td><%= chair.clinic ? "клиническая" : "теоретическая" %></td>
         <td><%= '%.2f' % chair.rating[@last_year]["rating"] %></td>
-	<% if current_user_editor? %>
+	<% if @editor_permission %>
 	  <td>
 	    <%= link_to t('.edit', :default => t("helpers.links.edit")),
 			edit_chair_path(chair), :class => 'btn btn-mini' %>
@@ -36,7 +36,7 @@
     <% end %>
   </tbody>
 </table>
-<% if current_user_editor? %>
+<% if @editor_permission %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_chair_path,
             :class => 'btn btn-primary' %>
