@@ -1,5 +1,9 @@
 <%- model_class = Employee -%>
 <%- model_class_2 = Point -%>
+<div>
+<p class="pull-left"><%= link_to 'Предыдущий', @prev_employee if @prev_employee %>
+<p class="pull-right"><%= link_to 'Следующий', @next_employee if @next_employee %>
+</div>
 <div class="page-header">
   <h1><%= @employee.fio %></h1>
 </div>

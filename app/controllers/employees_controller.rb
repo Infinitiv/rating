@@ -20,6 +20,8 @@ class EmployeesController < ApplicationController
     @points = @employee.points.order(:year)
     @point = @employee.points.new
     @graph_points = graph_points(@points)
+    @prev_employee = Employee.find_by_id(@employee.id - 1)
+    @next_employee = Employee.find_by_id(@employee.id + 1)
   end
 
   # GET /employees/new
