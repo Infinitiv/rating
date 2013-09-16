@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :set_last_year, only: [:index, :show]
+  before_action :set_editor_permission, only: [:index, :show]
   before_action :require_viewer
   before_action :require_editor, only: [:new, :edit, :create, :update, :destroy]
 
@@ -99,6 +100,10 @@ class EmployeesController < ApplicationController
     
     def set_last_year
       @last_year = Point.maximum(:year)
+    end
+    
+    def set_editor_permission
+      @editor_permission = current_user_editor?
     end
 
     def graph_points(points)
