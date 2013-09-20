@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Название</th>
-      <% if current_user_editor? %>
+      <% if @editor_permission %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
     </tr>
@@ -15,7 +15,7 @@
     <% @faculties.each do |faculty| %>
       <tr>
         <td><%= link_to faculty.name, "chairs?" + "filtered=" + faculty.id.to_s %></td>
-	<% if current_user_editor? %>
+	<% if @editor_permission %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_faculty_path(faculty), :class => 'btn btn-mini' %>
@@ -30,7 +30,7 @@
     <% end %>
   </tbody>
 </table>
-<% if current_user_editor? %>
+<% if @editor_permission %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_faculty_path,
             :class => 'btn btn-primary' %>

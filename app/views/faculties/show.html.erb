@@ -7,7 +7,7 @@
   <dt><strong>Название:</strong></dt>
   <dd><%= @faculty.name %></dd>
 </dl>
-<% if current_user_editor? %>
+<% if @editor_permission %>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               faculties_path, :class => 'btn'  %>

@@ -38,7 +38,7 @@
       <th>Ученая степень</th>
       <th>Ученое звание</th>
       <th>Зав. кафедрой</th>
-      <% if current_user_editor? %>
+      <% if @editor_permission %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
     </tr>
@@ -52,7 +52,7 @@
         <td><%= employee.degree.name if employee.degree%></td>
         <td><%= employee.academic_title.name if employee.academic_title %></td>
         <td><%= 'да, рейтинг ' + '%.2f' % employee.head_rating(@last_year) if employee.head? %></td>
-	<% if current_user_editor? %>
+	<% if @editor_permission %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_employee_path(employee), :class => 'btn btn-mini' %>
@@ -67,7 +67,7 @@
     <% end %>
   </tbody>
 </table>
-<% if current_user_editor? %>
+<% if @editor_permission %>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               chairs_path, :class => 'btn'  %>
