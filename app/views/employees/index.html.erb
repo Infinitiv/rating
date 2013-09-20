@@ -28,19 +28,19 @@
     </tr>
   </thead>
   <tbody>
-    <% @employees.each do |employee| %>
+    <% @points.each do |point| %>
       <tr>
-        <td><%= link_to employee.fio, employee_path(employee) %></td>
-        <td><%= link_to employee.chair.name, chair_path(employee.chair) if employee.chair %></td>
-        <td><%= (link_to employee.post.name, "employees?" + "filtered=" + employee.post.id.to_s) if employee.post %></td>
-        <td><%= employee.rating(@last_year) %></td>
-        <td><%= employee.head_rating(@last_year).round(2) if employee.head? %></td>
+        <td><%= link_to point.employee.fio, employee_path(point.employee) %></td>
+        <td><%= link_to point.employee.chair.name, chair_path(point.chair) if point.chair %></td>
+        <td><%= (link_to point.post.name, "employees?" + "filtered=" + point.post.id.to_s) if point.post %></td>
+        <td><%= point.rating %></td>
+        <td><%= point.head_rating.round(2) if point.employee.head? %></td>
 	<% if @editor_permission %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_employee_path(employee), :class => 'btn btn-mini' %>
+                      edit_employee_path(point.employee), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      employee_path(employee),
+                      employee_path(point.employee),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>

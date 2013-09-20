@@ -1,14 +1,14 @@
 class EmployeesController < ApplicationController
+  before_action :require_viewer
+  before_action :require_editor, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :set_last_year, only: [:index, :show]
   before_action :set_editor_permission, only: [:index, :show]
-  before_action :require_viewer
-  before_action :require_editor, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /employees
   # GET /employees.json
   def index
-    params[:filtered] ? @employees = Employee.find_all_by_post_id(params[:filtered], :include => [:points, :post, :chair]) : @employees = Employee.all(:include => [:points, :post, :chair])
+    params[:filtered] ? @points = Point.where(year: 2013).includes(:employee, :post, :chair).where(employees: {post_id: params[:filtered]}) : @points = Point.where(year: 2013).includes(:employee, :post, :chair)
     respond_to do |format|
       format.html
       format.xls
