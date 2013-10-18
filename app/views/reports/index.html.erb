@@ -96,7 +96,7 @@
       </td>
       <% @years.each do |year| %>
       <td>
-        <%= @average_rating[year][post.id][:total][1] %>
+        <%= @average_rating[year][post.id][:total][0] %>
       </td>
       <% end %>
     </tr>
@@ -106,7 +106,17 @@
       </td>
       <% @years.each do |year| %>
       <td>
-        <%= @average_rating[year][post.id][:total][2] %>
+        <%= @average_rating[year][post.id][:total][1] %>
+      </td>
+      <% end %>
+    </tr>
+        <tr>
+      <td>
+        Научная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][2] %>
       </td>
       <% end %>
     </tr>
