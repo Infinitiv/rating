@@ -22,13 +22,23 @@
       </td>
       <% @years.each do |year| %>
       <td>
-        <%= @average_rating[year][:total][1] %>
+        <%= @average_rating[year][:total][0] %>
       </td>
       <% end %>
     </tr>
     <tr>
       <td>
         Учебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][1] %>
+      </td>
+      <% end %>
+    </tr>
+        <tr>
+      <td>
+        Научная работа
       </td>
       <% @years.each do |year| %>
       <td>
