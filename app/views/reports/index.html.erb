@@ -1,9 +1,184 @@
 <h1>Отчеты</h1>
 
-<h2>Средние значения рейтинга</h2>
-
+<table class="table">
+  <tread>
+    <tr>
+      <th>
+      </th>
+      <% @years.each do |year| %>
+      <th>
+        <%= year %>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="<%= @years.count + 1 %>"><h2>рейтинг</h2>
+    </tr>
+    <tr>
+      <td>
+        Квалификация
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][1] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Учебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][2] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Лечебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][3] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общественная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][4] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общий
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][5] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Без раздела А
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][:total][6] %>
+      </td>
+      <% end %>
+    </tr>
+    <% @posts.each do |post| %>
+    <tr>
+      <td colspan="<%= @years.count + 1 %>"><h2><%= post.name %></h2>
+    </tr>
+        <tr>
+      <td>
+        Квалификация
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][post.id][:total][1] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Учебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][post.id][:total][2] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Лечебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][post.id][:total][3] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общественная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][post.id][:total][4] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общий
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%=@average_rating[year][post.id][:total][5] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Без раздела А
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @average_rating[year][post.id][:total][6] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+<td colspan="<%= @years.count + 1 %>">Факультеты</td>
+</tr>
+<% @faculties.each do |faculty| %>
+<tr>
+<td><%= faculty.name %></td>
 <% @years.each do |year| %>
-  <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total][0]} (#{@average_rating[year][:total][1]})" %></h3>
+<td>
+  <%= @average_rating[year][post.id][faculty.id][5] %>
+</td>
+<% end %>
+  <% end %>
+</tr>
+<td colspan="<%= @years.count + 1 %>">Кафедры</td>
+<tr>
+<td>
+Теоретические
+</td>
+      <% @years.each do |year| %>
+      <td>
+        <%=@average_rating[year][post.id][:teoretical][5] %>
+      </td>
+      <% end %>
+      <tr>
+<td>
+Клинические
+</td>
+      <% @years.each do |year| %>
+      <td>
+        <%=@average_rating[year][post.id][:clinical][5] %>
+      </td>
+      <% end %>
+</tr>
+    <% end %>
+  </tbody>  
+</table>
+<h2>Средние значения рейтинга</h2>
+<% @years.each do |year| %>
+  <h3><%= "#{year} - общий рейтинг #{@average_rating[year][:total][5]} (#{@average_rating[year][:total][6]})" %></h3>
 <table class="table">
 <thead>
 <tr>
@@ -15,7 +190,7 @@
 </th>
   <% @faculties.each do |faculty| %>
 <th>
-<%= faculty.name %>
+<%= "#{faculty.name} факультет" %>
 </th>
   <% end %>
 <th>
@@ -33,18 +208,18 @@
 <%= post.name %>
 </td>
 <td>
-  <%= "#{@average_rating[year][post.id][:total][0]} (#{@average_rating[year][post.id][:total][1]})" if @average_rating[year][post.id][:total][0] %>
+  <%= "#{@average_rating[year][post.id][:total][5]} (#{@average_rating[year][post.id][:total][6]})" if @average_rating[year][post.id][:total][5] %>
 </td>
   <% @faculties.each do |faculty| %>
 <td>
-  <%= "#{@average_rating[year][post.id][faculty.id][0]} (#{@average_rating[year][post.id][faculty.id][1]})" if @average_rating[year][post.id][faculty.id][0] %>
+  <%= "#{@average_rating[year][post.id][faculty.id][5]} (#{@average_rating[year][post.id][faculty.id][6]})" if @average_rating[year][post.id][faculty.id][5] %>
 </td>
   <% end %>
 <td>
-  <%= "#{@average_rating[year][post.id][:teoretical][0]} (#{@average_rating[year][post.id][:teoretical][1]})" if @average_rating[year][post.id][:teoretical][0] %>
+  <%= "#{@average_rating[year][post.id][:teoretical][5]} (#{@average_rating[year][post.id][:teoretical][6]})" if @average_rating[year][post.id][:teoretical][5] %>
 </td>
 <td>
-  <%= "#{@average_rating[year][post.id][:clinical][0]} (#{@average_rating[year][post.id][:clinical][1]})" if @average_rating[year][post.id][:clinical][0] %>
+  <%= "#{@average_rating[year][post.id][:clinical][5]} (#{@average_rating[year][post.id][:clinical][6]})" if @average_rating[year][post.id][:clinical][5] %>
 
 </td>
 </tr>
@@ -72,10 +247,10 @@
       <%= post.name %>
     </td>
     <td>
-      <%= "#{@average_rating[year][post.id][:sigma][0]}%" %>
+      <%= "#{@average_rating[year][post.id][:sigma][5]}%" %>
     </td>
         <td>
-      <%= "#{@average_rating[year][post.id][:sigma][1]}%" %>
+      <%= "#{@average_rating[year][post.id][:sigma][6]}%" %>
     </td>
         <td>
       <%= "#{@average_rating[year][post.id][:sigma][2]}%" %>

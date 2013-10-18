@@ -12,7 +12,7 @@ class Point < ActiveRecord::Base
   end
   
   def inqualification_rating
-    self.learning + self.science + self.clinic + self.social
+    0.75 * (self.learning + self.science + self.clinic + self.social)
   end
   
   def stdevs
