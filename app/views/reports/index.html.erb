@@ -1,5 +1,4 @@
 <h1>Отчеты</h1>
-
 <table class="table">
   <tread>
     <tr>
@@ -86,6 +85,82 @@
       </td>
       <% end %>
     </tr>
+
+    <% @faculties.each do |faculty| %>
+    <tr>
+      <td colspan="<%= @years.count + 1 %>"><h2><%= faculty.name %></h2>
+    </tr>
+        <tr>
+      <td>
+        Квалификация
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][0] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Учебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][1] %>
+      </td>
+      <% end %>
+    </tr>
+        <tr>
+      <td>
+        Научная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][2] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Лечебная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][3] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общественная работа
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][4] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Общий
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%=@faculty_rating[year][faculty.id][5] %>
+      </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>
+        Без раздела А
+      </td>
+      <% @years.each do |year| %>
+      <td>
+        <%= @faculty_rating[year][faculty.id][6] %>
+      </td>
+      <% end %>
+    </tr>
+  <% end %>
     <% @posts.each do |post| %>
     <tr>
       <td colspan="<%= @years.count + 1 %>"><h2><%= post.name %></h2>

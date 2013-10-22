@@ -6,6 +6,7 @@ class ReportsController < ApplicationController
     @posts = Post.all
     @faculties = Faculty.all
     @average_rating = average_rating
+    @faculty_rating = faculty_rating
   end
 
   private
@@ -52,6 +53,22 @@ class ReportsController < ApplicationController
       end
     end
     average_rating
+  end
+  
+  def faculty_rating
+    faculty_rating = {}
+    years = Point.all.map(&:year).uniq
+    faculties = Faculty.all.map(&:id).uniq
+    
+    years.each do |year|
+      faculty_rating[year] ||= {}
+	faculties.each do |faculty|
+	  ratings = Point.where(year: year).joins(:chair).where(chairs: {faculty_id: faculty}).map{|p| [p.qualification, p.learning, p.science, p.clinic, p.social, p.rating, p.inqualification_rating]}.transpose
+	  sum = sum(ratings)
+	  faculty_rating[year][faculty] = sum if sum
+	end
+    end
+    faculty_rating
   end
   
   def sum(ratings)
