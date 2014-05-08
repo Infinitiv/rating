@@ -339,7 +339,7 @@
     <% @posts.each do |post| %>
   <tr>
         <td>
-      <%= post.name %>
+      <%= "#{post.name} - #{@average_rating[year][post.id][:points_count][0]}" %>
     </td>
     <td>
       <%= "#{@average_rating[year][post.id][:sigma][5]}%" %>

@@ -22,6 +22,14 @@ class ReportsController < ApplicationController
     sigma
   end
   
+  def points_count(ratings)
+    points_count = []
+    ratings.each do |rating|
+      points_count += [rating.count]
+    end
+    points_count
+  end
+  
   def average_rating
     average_rating = {}
     years = Point.all.map(&:year).uniq
@@ -39,6 +47,8 @@ class ReportsController < ApplicationController
 	  average_rating[year][post][:total] = sum if sum
 	  sigma = sigma(ratings)
 	  average_rating[year][post][:sigma] = sigma if sigma
+	  points_count = points_count(ratings)
+	  average_rating[year][post][:points_count] = points_count if points_count
 	faculties.each do |faculty|
 	  ratings = Point.where(year: year).joins(:employee).joins(:chair).where(employees: {post_id: post}, chairs: {faculty_id: faculty}).map{|p| [p.qualification, p.learning, p.science, p.clinic, p.social, p.rating, p.inqualification_rating]}.transpose
 	  sum = sum(ratings)
